@@ -8,6 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.Collection;
 import java.util.List;
 
@@ -33,6 +34,10 @@ public class User implements UserDetails {
     private int age;
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    public int getAge() {
+        return Period.between(dateOfBirth, LocalDate.now()).getYears();
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
