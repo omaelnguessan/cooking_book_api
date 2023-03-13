@@ -1,5 +1,6 @@
 package com.omael.cookingbook.auth;
 
+import com.omael.cookingbook.exception.DuplicateResourceException;
 import com.omael.cookingbook.jwt.JwtService;
 import com.omael.cookingbook.token.Token;
 import com.omael.cookingbook.token.TokenRepository;
@@ -7,6 +8,7 @@ import com.omael.cookingbook.token.TokenType;
 import com.omael.cookingbook.user.Role;
 import com.omael.cookingbook.user.User;
 import com.omael.cookingbook.user.UserRepository;
+import com.omael.cookingbook.user.dao.UserDao;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Service;
 public class AuthenticationService {
 
     private final UserRepository userRepository;
+    private final UserDao userDao;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final TokenRepository tokenRepository;
@@ -25,6 +28,13 @@ public class AuthenticationService {
 
 
     public AuthenticationResponse register(RegisterRequest request) {
+
+        if (userDao.existsUserByEmail(request.getEmail())) {
+            throw new DuplicateResourceException(
+                    "email already taken"
+            );
+        }
+
         var user =  User.builder()
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
