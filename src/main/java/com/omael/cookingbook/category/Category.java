@@ -1,8 +1,10 @@
 package com.omael.cookingbook.category;
 
 
+import com.omael.cookingbook.recipe.Recipe;
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Objects;
 
 
@@ -19,6 +21,9 @@ public class Category {
     private String description;
     @Column(nullable = false)
     private boolean status;
+
+    @OneToMany(mappedBy = "category")
+    private List<Recipe> recipes;
 
     public Category(Integer id, String name, String description, boolean status) {
         this.id = id;
@@ -66,6 +71,14 @@ public class Category {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public List<Recipe> getRecipes() {
+        return recipes;
+    }
+
+    public void setRecipes(List<Recipe> recipes) {
+        this.recipes = recipes;
     }
 
     @Override

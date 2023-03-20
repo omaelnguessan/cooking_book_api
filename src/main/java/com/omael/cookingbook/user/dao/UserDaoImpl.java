@@ -2,9 +2,11 @@ package com.omael.cookingbook.user.dao;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SingleColumnRowMapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class UserDaoImpl implements UserDao {
     private final JdbcTemplate jdbcTemplate;
 

@@ -1,6 +1,8 @@
 package com.omael.cookingbook.user;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.omael.cookingbook.recipe.Recipe;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -29,11 +31,14 @@ public class User implements UserDetails {
     @Column(unique = true)
     private String email;
     private String password;
+    @JsonIgnore
     private LocalDate dateOfBirth;
     @Transient
     private int age;
     @Enumerated(EnumType.STRING)
     private Role role;
+    @OneToMany(mappedBy = "user")
+    private List<Recipe> recipes;
 
     public int getAge() {
         return Period.between(dateOfBirth, LocalDate.now()).getYears();
