@@ -25,10 +25,10 @@ public class Recipe {
     private Integer cookingTime;
     private Integer totalTime;
     @ManyToOne
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "user_id")
     private User user;
     @ManyToOne
-    @JoinColumn(name = "categoryId")
+    @JoinColumn(name = "category_id")
     private Category category;
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
