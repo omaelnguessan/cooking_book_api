@@ -17,8 +17,8 @@ public class RecipeDTOMapper implements Function<Recipe, RecipeDTO> {
                 recipe.getPrepareTime(),
                 recipe.getCookingTime(),
                 recipe.getTotalTime(),
-                recipe.getUser(),
-                recipe.getCategory()
+                recipe.getUser().getId(),
+                recipe.getCategory().getId()
         );
     }
 }
